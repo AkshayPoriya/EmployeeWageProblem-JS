@@ -1,9 +1,6 @@
 class EmployeePayrollData {
     // Property
-    id;
     salary;
-    gender;
-    startDate;
 
     // constructor
     constructor(...params) {
@@ -25,6 +22,36 @@ class EmployeePayrollData {
         }
     }
 
+    get id(){return this._id;}
+    set id(id){
+        let idRegex = RegExp('^[1-9]{1}[0-9]*$');
+        if(idRegex.test(id)){
+            this._id = id;
+        }else{
+            throw 'Incorrect Id';
+        }
+    }
+
+    get gender(){return this._gender;}
+    set gender(gender){
+        let genderRegex = RegExp('^[MFmf]{1}$');
+        if(genderRegex.test(gender)){
+            this._gender = gender;
+        }else{
+            throw 'Invalid input for gender';
+        }
+    }
+
+    get startDate(){return this._startDate;}
+    set startDate(startDate){
+        let currentDAte = new Date();
+        if(currentDAte-startDate>=0){
+            this._startDate = startDate;
+        }else{
+            throw 'Invalid Date';
+        }
+    }
+
     // method
     toString() {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -33,13 +60,21 @@ class EmployeePayrollData {
     }
 }
 
-let employeePayrollData = new EmployeePayrollData(1, "Virat", 3000);
-console.log(employeePayrollData.toString());
-try {
-    employeePayrollData.name = "rohit";
+try{
+    let employeePayrollData = new EmployeePayrollData(1, "Virat", 3000);
     console.log(employeePayrollData.toString());
-} catch (e) {
+}catch(e){
     console.error(e);
 }
-let newEmployeePayrollData = new EmployeePayrollData(1, "Smith", 3000, 'M', new Date());
-console.log(newEmployeePayrollData.toString());
+try{
+    let employeePayrollData = new EmployeePayrollData(1, "Rohit", 3000,'M');
+    console.log(employeePayrollData.toString());
+}catch(e){
+    console.error(e);
+}
+try{
+    let newEmployeePayrollData = new EmployeePayrollData(1, "Smith", 3000, 'M', new Date());
+    console.log(newEmployeePayrollData.toString());
+}catch(e){
+    console.error(e);
+}
