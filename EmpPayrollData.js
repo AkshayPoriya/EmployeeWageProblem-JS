@@ -9,6 +9,7 @@ class EmployeePayrollData {
         this.salary = params[2];
         this.gender = params[3];
         this.startDate = params[4];
+        this.zip = params[5];
     }
 
     // getter and setter method
@@ -22,33 +23,44 @@ class EmployeePayrollData {
         }
     }
 
-    get id(){return this._id;}
-    set id(id){
+    get id() { return this._id; }
+    set id(id) {
         let idRegex = RegExp('^[1-9]{1}[0-9]*$');
-        if(idRegex.test(id)){
+        if (idRegex.test(id)) {
             this._id = id;
-        }else{
+        } else {
             throw 'Incorrect Id';
         }
     }
 
-    get gender(){return this._gender;}
-    set gender(gender){
+    get gender() { return this._gender; }
+    set gender(gender) {
         let genderRegex = RegExp('^[MFmf]{1}$');
-        if(genderRegex.test(gender)){
+        if (genderRegex.test(gender)) {
             this._gender = gender;
-        }else{
+        } else {
             throw 'Invalid input for gender';
         }
     }
 
-    get startDate(){return this._startDate;}
-    set startDate(startDate){
+    get startDate() { return this._startDate; }
+    set startDate(startDate) {
         let currentDAte = new Date();
-        if(currentDAte-startDate>=0){
+        if (currentDAte - startDate >= 0) {
             this._startDate = startDate;
-        }else{
+        } else {
             throw 'Invalid Date';
+        }
+    }
+
+    get zip() { return this._zip; }
+    set zip(zip) {
+        let zipRegex = RegExp('^[1-9]{1}[0-9]{2}[ ]?[0-9]{3}$');
+        if (zipRegex.test(zip)) {
+            this._zip = zip;
+        }
+        else {
+            throw 'Invalid Pin Code';
         }
     }
 
@@ -60,21 +72,21 @@ class EmployeePayrollData {
     }
 }
 
-try{
-    let employeePayrollData = new EmployeePayrollData(1, "Virat", 3000);
+try {
+    let employeePayrollData = new EmployeePayrollData(1, "Virat", 3000, 'M', new Date(), 'A122585');
     console.log(employeePayrollData.toString());
-}catch(e){
+} catch (e) {
     console.error(e);
 }
-try{
-    let employeePayrollData = new EmployeePayrollData(1, "Rohit", 3000,'M');
+try {
+    let employeePayrollData = new EmployeePayrollData(1, "Rohit", 3000, 'M', new Date(), '122585');
     console.log(employeePayrollData.toString());
-}catch(e){
+} catch (e) {
     console.error(e);
 }
-try{
-    let newEmployeePayrollData = new EmployeePayrollData(1, "Smith", 3000, 'M', new Date());
+try {
+    let newEmployeePayrollData = new EmployeePayrollData(1, "Smith", 3000, 'M', new Date(), '166658');
     console.log(newEmployeePayrollData.toString());
-}catch(e){
+} catch (e) {
     console.error(e);
 }
