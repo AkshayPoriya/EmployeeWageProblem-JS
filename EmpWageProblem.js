@@ -28,6 +28,7 @@ let totalEmpHrs = 0;
 let totalWorkingDays = 0;
 let dailyWageArr = new Array();
 let dailyWageMap = new Map();
+let dailyHoursMap = new Map();
 
 while (totalEmpHrs <= MAX_WORKING_HOURS && totalWorkingDays < MAX_WORKING_DAYS) {
     totalWorkingDays++;
@@ -37,10 +38,12 @@ while (totalEmpHrs <= MAX_WORKING_HOURS && totalWorkingDays < MAX_WORKING_DAYS) 
         totalEmpHrs += dailyEmpHrs;
         dailyWageArr.push(CalculateWage(dailyEmpHrs));
         dailyWageMap.set(totalWorkingDays, CalculateWage(dailyEmpHrs));
+        dailyHoursMap.set(totalWorkingDays,dailyEmpHrs);
     } else {
         break;
     }
 }
+console.log("\nUC6")
 let totalEmpWage = CalculateWage(totalEmpHrs);
 console.log("Total Hours: " + totalEmpHrs + "\nTotal Wage: " + totalEmpWage);
 
@@ -49,7 +52,7 @@ let totalEmpWage1 = 0;
 dailyWageArr.forEach(function (dailyWage) {
     totalEmpWage1 += dailyWage;
 });
-console.log("UC 7.a(i) Total Wage: " + totalEmpWage1);
+console.log("\nUC 7.a(i) Total Wage: " + totalEmpWage1);
 
 //UC 7.a (ii) Use Array.reduce method to calculate total emp wage
 function sum(totalWage, dailyWage) {
@@ -103,6 +106,35 @@ console.log("UC 7.g Number of days employee worked: " + daysEmpWorked);
 
 //UC 8
 let totalEmpWage3 = Array.from(dailyWageMap.values()).reduce(sum, 0);
-console.log("UC8 Store daily wage in map");
+console.log("\nUC8 Store daily wage in map");
 console.log(dailyWageMap);
 console.log("Total emp wage: " + totalEmpWage3);
+
+//UC 9.a Calculate total wages and total hours worked using arrow functions
+let totalEmpHours = Array.from(dailyHoursMap.values()).reduce(sum,0);
+let totalEmpWage4 = dailyWageArr.filter(dailyWage=>dailyWage>0).reduce(sum,0);
+console.log("\nUC 9.a Get total hours and wage using arrow functions");
+console.log("Total emp wage: "+totalEmpWage4+"\nTotal Working Hours: "+totalEmpHours);
+
+//UC 9.b Show the full working days, part working days, no working days
+let mapTypeOfWorkingDay = new Map();
+mapTypeOfWorkingDay.set("full_work",new Array());
+mapTypeOfWorkingDay.set("part_time",new Array());
+mapTypeOfWorkingDay.set("no_work",new Array());
+dailyHoursMap.forEach((value,key,map)=>{
+    if(value==8){
+        let arr = mapTypeOfWorkingDay.get("full_work");
+        arr.push(key);
+        mapTypeOfWorkingDay.set("full_work",arr);
+    }else if(value==4){
+        let arr = mapTypeOfWorkingDay.get("part_time");
+        arr.push(key);
+        mapTypeOfWorkingDay.set("part_time",arr);
+    }else{
+        let arr = mapTypeOfWorkingDay.get("no_work");
+        arr.push(key);
+        mapTypeOfWorkingDay.set("no_work",arr);
+    }
+});
+console.log("UC 9.b Show the full working, part time working and no working days");
+console.log(mapTypeOfWorkingDay);
